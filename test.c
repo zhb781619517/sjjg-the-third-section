@@ -1,128 +1,134 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define N 2             //Í£³µ³¡´óÐ¡
-#define FEE 10          //Ã¿Ð¡Ê±µÄÊÕ·Ñ
+#define N 2             //åœè½¦åœºå¤§å°
+#define FEE 10          //æ¯å°æ—¶çš„æ”¶è´¹
 
 typedef struct {
     int num;
     int time;
-}Car;                   //Ã¿Á¾³µËù°üº¬µÄÐÅÏ¢
+}Car;                   //æ¯è¾†è½¦æ‰€åŒ…å«çš„ä¿¡æ¯
 
-typedef struct {
+typedef struct QNode {
     Car data;
     struct QNode* next;
-}QNode, * QueuePtr;     //½¨Á¢Á´¶ÓÁÐµÄ×¼±¸
+}QNode, * QueuePtr;     //å»ºç«‹é“¾é˜Ÿåˆ—çš„å‡†å¤‡
 
 typedef struct {
     QueuePtr front;
     QueuePtr rear;
     int length;
-}*QueueList, QListNode; //Á´¶ÓÁÐÔÚÖ®ºóµÄº¯ÊýÖÐ¿ÉÒÔµÄÖ¸Õëµ÷ÓÃ
+}*QueueList, QListNode; //é“¾é˜Ÿåˆ—åœ¨ä¹‹åŽçš„å‡½æ•°ä¸­å¯ä»¥çš„æŒ‡é’ˆè°ƒç”¨
 
 typedef struct {
     Car data[N];
     int num;
-}pkNode, * pk;          //Í£³µ³¡µÄÕ»ÀàÐÍ
+}pkNode, * pk;          //åœè½¦åœºçš„æ ˆç±»åž‹
 
-void Push(pk, Car);
-void SPop(pk, pk);            //°ÑÇ°ÃæµÄ³öÕ»£¬·ÅÈëºóÃæµÄÕ»
-void Qpush(QueueList, Car);
-void QPop(QueueList, pk);
+void QPush(QueueList, Car);
+Car QPop(QueueList);
+void SPush(pk, Car);
+Car SPop(pk);
 
 int main()
 {
     pk packing1, packing2;
-    QueueList lins = (QueueList)malloc(sizeof(QListNode));
-    QueuePtr a = (QueuePtr)malloc(sizeof(QNode));                   //½¨Á¢¿ÕµÄÁ´¶ÓÁÐ
-    a->next = NULL;                                                 //³õ¶¨Ïò
-    lins->front = lins->rear = a;                                   //¸³Óè¶ÓÁÐÍ·ºÍÎ²
-    Car b;                                                          //ÊäÈëÖÐ½é
-    char c;
+    QueueList Q = (QueueList)malloc(sizeof(QListNode));
+    QueuePtr a = (QueuePtr)malloc(sizeof(QNode));                   //å»ºç«‹ç©ºçš„é“¾é˜Ÿåˆ—
+    //Q->next = NULL;                                                 //åˆå®šå‘
+    Q->front = Q->rear = a;                                   //èµ‹äºˆé˜Ÿåˆ—å¤´å’Œå°¾
+    Car b, c;                                                          //è¾“å…¥ä¸­ä»‹
+    char d;
     packing1 = (pk)malloc(sizeof(pkNode));
-    packing2 = (pk)malloc(sizeof(pkNode));                          //ÉêÇëÍ£³µ³¡ÄÚ´æ
-    packing1->num = packing2->num = lins->length = 0;
-    int i, j, k;
-    while (1)                                                       //ÓÀÕæÑ­»·£¬ÄÚ²¿breakÍË³ö
-    {                                                                                                       //¹æ¶¨Õ»¶¥ÏÂ±êÎª×îºó£¬Õ»µ×ÏÂ±êÎª0
-        j = 0;                                                                                              //¶ÓÁÐÔÚÍ·²¿³ö¶Ó£¬Î²²¿Èë¶Ó
-        printf("ºéÊ¦¸µ£¬³¢ÊÔÇÐËûÖÐÂ·!\n");
-        scanf("%c %d %d", &c, &b.num, &b.time);                     //ÊäÈëÊý¾Ý
-        if (c == 'A')
+    packing2 = (pk)malloc(sizeof(pkNode));                          //ç”³è¯·åœè½¦åœºå†…å­˜
+    packing1->num = packing2->num = Q->length = 0;
+    int i, j;
+    while (1)
+    {
+        j=0;
+        printf("è¯·è¾“å…¥ï¼š");
+        scanf("%c %d %d", &d, &b.num, &b.time);
+        if (d == 'E')
         {
-            if (packing1->num > 1)
+            printf("ç»“æŸ\n");
+            break;
+        }
+        else if (d == 'A')
+        {
+            if (packing1->num > N - 1)
             {
-                Qpush(lins, b);                                                     //Èç¹ûÍ£³µ³¡ÂúÁË£¬Ôò½«Æä·ÅÈë±ãµÀ¼´¶ÓÁÐÖÐ
-                printf("Î»ÓÚ±ãµÀ%dÎ»ÖÃ£¬´ýÍ£³µ³¡ÓÐÈË³öÈ¥ºó·½¿ÉÈëÄÚ\n", lins->length);
+                QPush(Q, b);
+                printf("è½¦ç‰Œ%dï¼Œæ—¶é—´%dï¼Œä¾¿é“ä½ç½®%d",b.num,b.time,Q->length+1);
             }
             else
             {
-                Push(packing1, b);                                                  //Èç¹ûÍ£³µ³¡ÓÐ¿ÕÓà£¬Ôò½«Æä·ÅÈëÕ»¶¥
-                printf("Î»ÓÚÍ£³µ³¡%dÎ»ÖÃ\n", packing1->num);
+                SPush(packing1, b);
+                printf("è½¦ç‰Œ%dï¼Œæ—¶é—´%dï¼Œåœè½¦åœºä½ç½®%d",b.num,b.time,packing1->num+1);
             }
         }
-        else if (c == 'D')
+        else if (d == 'D')
         {
-            for (i = N-1 ; i >= 0 ; i)
+            for(i=N-1;i>=0;i++)
             {
-                if (packing1->data[i].num == b.num)                                 //±éÀúÀ´ÕÒµ½³µÅÆºÅÏàÍ¬µÄÊý¾Ý£¬²¢×ö´¦Àí
+                if(packing1->data[i].num==b.num)
                 {
-                    k = b.time - packing1->data[i].time;
-                    printf("³µÅÆºÅ%d£¬ÓÉ%dÍ£µ½%d£¬¹²%dÊ±¼ä£¬ÊÕ·Ñ½ð¶îÎª%d\n", packing1->data[i].num, packing1->data[i].time, b.time, k, k * FEE);
-                    break;
+                    k=b.num-packing1->data[i].num;
+                    printf("å¼€å§‹æ—¶é—´%dï¼Œç»“æŸæ—¶é—´%dï¼Œç»è¿‡çš„æ—¶é—´%dï¼Œæ”¶è´¹%d",packing1->data[i].num,b.num,k,k*FEE);
+                    SPop(packing1);
                 }
                 else
                 {
-                    SPop(packing1, packing2);                                       //½«Ç°ÖÃÔªËØ·ÅÈëÁÙÊ±Õ»
+                    c=SPop(packing1);
+                    SPush(packing2,c);
                     j++;
                 }
             }
-            for (; j >= 0; j--)
+            for(;j>0;j--)
             {
-                SPop(packing2, packing1);                                           //½«ÁÙÊ±Õ»ÔªËØ·Å»ØÍ£³µ³¡Õ»
+                c=SPop(packing2);
+                SPush(packing1,c);
             }
-            if (lins->front != lins->rear)
+            if(!Q->length)
             {
-                QPop(lins, packing1);                                               //Èç¹û¶ÓÁÐ²»ÊÇ¿Õ¶ÓÁÐ£¬Ôò³ö¶Ó£¬½«³ö¶ÓÔªËØ·ÅÈëÍ£³µ³¡
+                c=QPop(Q);
+                SPush(packing1,c);
             }
-            //±éÀúpacking1Èç¹û²»ÊÇÖ¸¶¨ÔªËØ¾Í·Åµ½packing2£¬Ö±µ½ÕÒµ½È»ºóÈ¡³ö£¬È»ºóÔÙ°Ñpacking2µÄ·Å»ØÈ¥
         }
-        else if (c == 'E')
-        {
-            printf("½áÊø£¡\n");
-            break;
-        }
-        while (getchar() != '\n') {}                                                //³ýÈ¥ÔÚ»º³åÇøµÄÔÓÔªËØÓë»»ÐÐ·û
     }
+    return 0;
 }
 
-void Push(pk a, Car b)
+void QPush(QueueList a, Car b)          //å°¾éƒ¨å…¥ï¼Œå¤´éƒ¨å‡º
 {
-    a->data[a->num].num = b.num;
-    a->data[a->num].time = b.time;
-    a->num++;
-}
-void SPop(pk a1, pk a2)
-{
-    Push(a2, a1->data[a1->num]);
-    a1->num--;
-}
-void Qpush(QueueList a, Car b)
-{
-    QueuePtr temp = (QueuePtr)malloc(sizeof(QNode));
-    temp->data.num = b.num;
-    temp->data.time = b.time;
-    temp->next = a->rear->next;
-    a->rear->next = temp;
+    QueuePtr temp=malloc(sizeof(QNode));
+    temp->data.num=b.num;
+    temp->data.time=b.time;
+    temp->next=a->rear->next;
+    a->rear->next=temp;
+    a->rear=temp;
     a->length++;
 }
 
-void QPop(QueueList a, pk b)
+Car QPop(QueueList a)
 {
-    QueuePtr p, q;
+    Car temp;
+    temp.num=a->front->data.num;
+    temp.time=a->front->data.time;
     a->length--;
-    p = a->front;
-    q = p->next;
-    p->next = q->next;
-    Push(b, q->data);
-    a->length--;
+    return temp;
+}
+
+void SPush(pk a, Car b)
+{
+    a->data[a->num].num=b.num;
+    a->data[a->num].time=b.time;
+    a->num--;
+}
+
+Car SPop(pk a)
+{
+    Car temp;
+    temp.num=a->data[a->num].num;
+    temp.time=a->data[a->num].time;
+    a->num--;
+    return temp;
 }
