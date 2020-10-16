@@ -41,11 +41,11 @@ int main()
     packing1 = (pk)malloc(sizeof(pkNode));
     packing2 = (pk)malloc(sizeof(pkNode));                          //申请停车场内存
     packing1->num = packing2->num = Q->length = 0;
-    int i, j;
+    int i, j, k, h;
     while (1)
     {
         j=0;
-        printf("请输入：");
+        printf("请输入：\n");
         scanf("%c %d %d", &d, &b.num, &b.time);
         if (d == 'E')
         {
@@ -57,12 +57,12 @@ int main()
             if (packing1->num > N - 1)
             {
                 QPush(Q, b);
-                printf("车牌%d，时间%d，便道位置%d",b.num,b.time,Q->length+1);
+                printf("车牌%d，时间%d，便道位置%d\n",b.num,b.time,Q->length);
             }
             else
             {
                 SPush(packing1, b);
-                printf("车牌%d，时间%d，停车场位置%d",b.num,b.time,packing1->num+1);
+                printf("车牌%d，时间%d，停车场位置%d\n",b.num,b.time,packing1->num);
             }
         }
         else if (d == 'D')
@@ -71,9 +71,11 @@ int main()
             {
                 if(packing1->data[i].num==b.num)
                 {
-                    k=b.num-packing1->data[i].num;
-                    printf("开始时间%d，结束时间%d，经过的时间%d，收费%d",packing1->data[i].num,b.num,k,k*FEE);
+                    k=b.time-packing1->data[i].time;
+                    printf("开始时间%d，结束时间%d，经过的时间%d，收费%d\n",packing1->data[i].time,b.time,k,k*FEE);
+                    h=b.num;
                     SPop(packing1);
+                    break;
                 }
                 else
                 {
@@ -84,15 +86,19 @@ int main()
             }
             for(;j>0;j--)
             {
+            	printf("hhh\n");
                 c=SPop(packing2);
                 SPush(packing1,c);
             }
-            if(!Q->length)
+            if(Q->length)
             {
                 c=QPop(Q);
+                c.time=h;
                 SPush(packing1,c);
+                printf("车牌号为%d的车辆从便道进入停车场%d处，进入停车场的时间为%d\n",c.num,packing1->num,h);
             }
         }
+        while(getchar()!='\n'){}
     }
     return 0;
 }
@@ -121,7 +127,7 @@ void SPush(pk a, Car b)
 {
     a->data[a->num].num=b.num;
     a->data[a->num].time=b.time;
-    a->num--;
+    a->num++;
 }
 
 Car SPop(pk a)
