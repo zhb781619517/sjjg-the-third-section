@@ -20,11 +20,11 @@ int main()
 	int i,j,k,c;
 	Elem ha;
 	StackList a=NULL;
-	printf("1.½¨Á¢Ò»¸ö¿ÕÕ»\n2.ÈëÕ»\n3.³öÕ»\n4.Êä³öÕ»µÄ³¤¶È\n5.µÃµ½Õ»¶¥ÔªËØ£¨·Ç³öÕ»£©\n6.Çå¿ÕÕ»\n7.¶Á³öÕ»\n\nÊäÈëÆäËû¼üÏú»ÙÕ»²¢ÍË³ö³ÌĞò\n\n");
-    printf("\nÇëÊäÈëÄãĞèÒªÖ´ĞĞµÄ²Ù×÷£º");
+	printf("1.å»ºç«‹ä¸€ä¸ªç©ºæ ˆ\n2.å…¥æ ˆ\n3.å‡ºæ ˆ\n4.è¾“å‡ºæ ˆçš„é•¿åº¦\n5.å¾—åˆ°æ ˆé¡¶å…ƒç´ ï¼ˆéå‡ºæ ˆï¼‰\n6.æ¸…ç©ºæ ˆ\n7.è¯»å‡ºæ ˆ\n8.é”€æ¯æ ˆ\n\nè¾“å…¥å…¶ä»–é”€æ¯æ ˆå¹¶é€€å‡ºç¨‹åº\n\n");
+    printf("\nè¯·è¾“å…¥ä½ éœ€è¦æ‰§è¡Œçš„æ“ä½œï¼š");
     while(1)
     {
-    	printf("ÇëÊäÈë£º");
+    	printf("è¯·è¾“å…¥ï¼š");
     	scanf("%d",&c);
         switch(c)
         {
@@ -35,51 +35,51 @@ int main()
             case 2:
             	if(a)
             	{
-            		printf("ÇëÊäÈëÈëÕ»ÔªËØ£º");
+            		printf("è¯·è¾“å…¥å…¥æ ˆå…ƒç´ ï¼š");
 					scanf("%d",&ha); 
                 	SPush(a,ha);
             	}
             	else
             	{
-            		printf("²Ù×÷Ê§°Ü£º£¨Õ»Î´½¨Á¢£©\n");
+            		printf("æ“ä½œå¤±è´¥ï¼šï¼ˆæ ˆæœªå»ºç«‹ï¼‰\n");
             		continue;
 				}
                 break;
             case 3:
             	if(!a)
             	{
-               		printf("²Ù×÷Ê§°Ü£º£¨Õ»Î´½¨Á¢£©\n");
+               		printf("æ“ä½œå¤±è´¥ï¼šï¼ˆæ ˆæœªå»ºç«‹ï¼‰\n");
             		continue;
 				}
             	else if(Stack_Length(a)==0)
             	{
-            		printf("²Ù×÷Ê§°Ü£º£¨Õ»Îª¿Õ£©\n");
+            		printf("æ“ä½œå¤±è´¥ï¼šï¼ˆæ ˆä¸ºç©ºï¼‰\n");
 				}
-            	printf("³öÕ»³É¹¦£¬Õ»¶¥ÔªËØÎª£º%d\n",SPop(a));
+            	printf("å‡ºæ ˆæˆåŠŸï¼Œæ ˆé¡¶å…ƒç´ ä¸ºï¼š%d\n",SPop(a));
                 break;
             case 4:
             	if(!a)
             	{
-            		printf("²Ù×÷Ê§°Ü£º£¨Õ»Î´½¨Á¢£©\n");
+            		printf("æ“ä½œå¤±è´¥ï¼šï¼ˆæ ˆæœªå»ºç«‹ï¼‰\n");
 				}
-                printf("Õ»³¤¶ÈÎª%d\n",Stack_Length(a));
+                printf("æ ˆé•¿åº¦ä¸º%d\n",Stack_Length(a));
                 break;
             case 5:
             	if(!a)
             	{
-               		printf("²Ù×÷Ê§°Ü£º£¨Õ»Î´½¨Á¢£©\n");
+               		printf("æ“ä½œå¤±è´¥ï¼šï¼ˆæ ˆæœªå»ºç«‹ï¼‰\n");
             		continue;
 				}
             	else if(Stack_Length(a)==0)
             	{
-            		printf("²Ù×÷Ê§°Ü£º£¨Õ»Îª¿Õ£©\n");
+            		printf("æ“ä½œå¤±è´¥ï¼šï¼ˆæ ˆä¸ºç©ºï¼‰\n");
 				}
-            	printf("Õ»¶¥ÔªËØÎª%d\n",Stack_Gettop(a));
+            	printf("æ ˆé¡¶å…ƒç´ ä¸º%d\n",Stack_Gettop(a));
                 break;
             case 6:
                	if(!a)
             	{
-               		printf("²Ù×÷Ê§°Ü£º£¨Õ»Î´½¨Á¢£©\n");
+               		printf("æ“ä½œå¤±è´¥ï¼šï¼ˆæ ˆæœªå»ºç«‹ï¼‰\n");
             		continue;
 				}
             	Stack_Clear(a);
@@ -87,16 +87,19 @@ int main()
             case 7:
               	if(!a)
             	{
-               		printf("²Ù×÷Ê§°Ü£º£¨Õ»Î´½¨Á¢£©\n");
+               		printf("æ“ä½œå¤±è´¥ï¼šï¼ˆæ ˆæœªå»ºç«‹ï¼‰\n");
             		continue;
 				}
                 Stack_Read(a);
                 break;
-            default:
+            case 8:
                 Stack_Destory(a);
-                return 0;
+            	break;
+            default:
+            	Stack_Destory(a);
+				return 0; 
         }
-        printf("\nÇëÊäÈëÄãĞèÒªÖ´ĞĞµÄ²Ù×÷£º");
+        printf("\nè¯·è¾“å…¥ä½ éœ€è¦æ‰§è¡Œçš„æ“ä½œï¼š");
         while(getchar()!='\n'){}
     }
 }
@@ -145,21 +148,21 @@ Elem Stack_Gettop(StackList a)
 }
 void Stack_Clear(StackList a)
 {
-    StackList r=a,p;
-    int i,length=Stack_Length(a);
-    for(i=0;i<=length;i++)
+	StackList p=a->next,q; 
+    while(p!=NULL)
     {
-        p=r->next;
-        free(r);
-        r=p;
+        q=p;
+        p=p->next;
+        free(q);
     }
+    a->next=NULL;
     printf("Successful!\n");
 }
 void Stack_Read(StackList a)
 {
 	StackList p;
 	p=a;
-	printf("´ÓÕ»¶¥µ½Õ»µ×Îª£º\n");
+	printf("ä»æ ˆé¡¶åˆ°æ ˆåº•ä¸ºï¼š\n");
 	while(p->next)
 	{
 		p=p->next;
@@ -168,24 +171,12 @@ void Stack_Read(StackList a)
 }
 void Stack_Destory(StackList a)
 {
-/*	StackList p,q;
-	p=a;
-	q=p->next;
-	while(p->next)
-	{
-		p=q;
-		q=q->next;
-		free(p);
-	}
-	free(a);*/
     StackList r=a,p;
-    int i,length=Stack_Length(a);
-    for(i=0;i<=length;i++)
+    while(r)
     {
-        p=r->next;
-        free(r);
-        r=p;
+        p=r;
+        r=r->next;
+        free(p);
     }
     printf("Successful!\n");
 }
-
