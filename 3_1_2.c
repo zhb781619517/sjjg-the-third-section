@@ -93,14 +93,6 @@ void DestroyQueue(QueueList a) {
 	printf("Successful!\n");
 }
 void ClearQueue(QueueList *a) {
-/*	QueuePtr p=a->end->next,q;
-	while(p!=NULL) {
-		q=p;
-		p=p->next;
-		free(q);
-	}
-	a->end=a->head;
-	printf("Successful!\n");*/
 	while(a->end==a->head) {
 		DeQueue(*a);
 	}
