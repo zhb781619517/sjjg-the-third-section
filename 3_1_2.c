@@ -1,4 +1,4 @@
-//¶ÓÁĞ¼°ÆäÏà¹Ø²Ù×÷
+//é˜Ÿåˆ— åŠå…¶ç›¸å…³æ“ä½œ 
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -7,216 +7,145 @@
 
 typedef int Elem;
 
-typedef struct
-{
-    Elem data;
-    struct QNode *next;
-}QNode,* QueuePtr;
+typedef struct QNode {
+	Elem data;
+	struct QNode *next;
+} QNode,* QueuePtr;
 
-typedef struct
-{
-    QueuePtr head;
-    QueuePtr end;
-}QueueList;
+typedef struct {
+	QueuePtr head;
+	QueuePtr end;
+} QueueList;
 
-QueueList InitQueue();
 void DestroyQueue(QueueList);
-void ClearQueue(QueueList);
+void ClearQueue(QueueList*);
 int QueueEmpty(QueueList);
 int QueueLength(QueueList);
 Elem GetHead(QueueList);
-void EnQueue(QueueList,Elem);
+void EnQueue(QueueList*,Elem);
 Elem DeQueue(QueueList);
 void QueueRead(QueueList);
 
-int main()
-{
-    char c;
-    Elem ha;
-    QueueList a;
-    printf("1.½¨Á¢Ò»¸ö¿Õ¶ÓÁĞ\n2.Çå³ı¶ÓÁĞ\n3.ÅĞ¶Ï¶ÓÁĞÊÇ·ñÎª¿Õ\n4.µÃµ½¶ÓÁĞ³¤¶È\n5.µÃµ½¶ÓÁĞÍ·ÔªËØ£¨·Ç³ö¶Ó£©\n6.Èë¶Ó\n7.³ö¶Ó\n8.¶Á³ö¸Ã¶ÓÁĞ\n\nÊäÈëÆäËû¼üÏú»Ù¶ÓÁĞ²¢ÍË³ö³ÌĞò\n\n");
-    printf("\nÇëÊäÈëÄãĞèÒªÖ´ĞĞµÄ²Ù×÷£º");
-    while((c=getchar())!='\n')
-    {
-        switch(c)
-        {
-            case '1':
-                a=InitQueue();
-                break;
-            case '2':
-                ClearQueue(a);
-                break;
-            case '3':
-                if(QueueEmpty(a))
-                {
-                    printf("¶ÓÁĞÎª¿Õ\n");
-                }
-                else
-                {
-                    printf("¶ÓÁĞ·Ç¿Õ\n");
-                }
-                break;
-            case '4':
-                printf("¶ÓÁĞ³¤¶ÈÎª%d\n",QueueLength(a));
-                break;
-            case '5':
-                if(QueueEmpty(a))
-                {
-                    printf("¶ÓÁĞÎª¿Õ£¬ÎŞ·¨Ö´ĞĞµ±Ç°²Ù×÷£¡\n");
-                }
-                else
-                {
-                    printf("¸Ã¶ÓÁĞÍ·ÔªËØµÄÖµÎª£º%d\n",GetHead(a));
-                }
-                break;
-            case '6':
-                printf("ÇëÊäÈëÄãÏë²åÈëµÄÔªËØ£º");
-                scanf("%d",&ha);
-                EnQueue(a,ha);
-                break;
-            case '7':
-                printf("³ö¶Ó³É¹¦£¬¸Ã¶ÓÁĞÍ·ÔªËØµÄÖµÎª£º%d\n",DeQueue(a));
-                break;
-            case '8':
-                QueueRead(a);
-            default:
-                DestroyQueue(a);
-        }
-        printf("\nÇëÊäÈëÄãĞèÒªÖ´ĞĞµÄ²Ù×÷£º");
-        while(getchar()!='\n'){}
-    }
-    return 0;
+int main() {
+	char c;
+	Elem ha;
+	QueueList a;
+	QueuePtr r;
+	printf("1.å»ºç«‹ä¸€ä¸ªç©ºé˜Ÿåˆ—\n2.æ¸…é™¤é˜Ÿåˆ—\n3.åˆ¤æ–­é˜Ÿåˆ—æ˜¯å¦ä¸ºç©º\n4.å¾—åˆ°é˜Ÿåˆ—é•¿åº¦\n5.å¾—åˆ°é˜Ÿåˆ—å¤´å…ƒç´ ï¼ˆéå‡ºé˜Ÿï¼‰\n6.å…¥é˜Ÿ\n7.å‡ºé˜Ÿ\n8.è¯»å‡ºè¯¥é˜Ÿåˆ—\n\nè¾“å…¥å…¶ä»–é”®é”€æ¯é˜Ÿåˆ—å¹¶é€€å‡ºç¨‹åº\n\n");
+	printf("\nè¯·è¾“å…¥ä½ éœ€è¦æ‰§è¡Œçš„æ“ä½œï¼š");
+	while((c=getchar())!='\n') {
+		switch(c) {
+			case '1':
+				r=(QueuePtr)malloc(sizeof(QNode));
+				r->next==NULL;
+				a.end=a.head=r;
+				if(a.end==a.head) {
+					printf("Successful!\n");
+				}
+				break;
+			case '2':
+				ClearQueue(&a);
+				break;
+			case '3':
+				if(QueueEmpty(a)) {
+					printf("é˜Ÿåˆ—ä¸ºç©º\n");
+				} else {
+					printf("é˜Ÿåˆ—éç©º\n");
+				}
+				break;
+			case '4':
+				printf("é˜Ÿåˆ—é•¿åº¦ä¸º%d\n",QueueLength(a));
+				break;
+			case '5':
+				if(QueueEmpty(a)) {
+					printf("é˜Ÿåˆ—ä¸ºç©ºï¼Œæ— æ³•æ‰§è¡Œå½“å‰æ“ä½œï¼\n");
+				} else {
+					printf("è¯¥é˜Ÿåˆ—å¤´å…ƒç´ çš„å€¼ä¸ºï¼š%d\n",GetHead(a));
+				}
+				break;
+			case '6':
+				printf("è¯·è¾“å…¥ä½ æƒ³æ’å…¥çš„å…ƒç´ ï¼š");
+				scanf("%d",&ha);
+				EnQueue(&a,ha);
+				break;
+			case '7':
+				printf("å‡ºé˜ŸæˆåŠŸï¼Œè¯¥é˜Ÿåˆ—å¤´å…ƒç´ çš„å€¼ä¸ºï¼š%d\n",DeQueue(a));
+				break;
+			case '8':
+				QueueRead(a);
+				break;
+			default:
+				DestroyQueue(a);
+		}
+		printf("\nè¯·è¾“å…¥ä½ éœ€è¦æ‰§è¡Œçš„æ“ä½œï¼š");
+		while(getchar()!='\n') {}
+	}
+	return 0;
 }
 
-QueueList InitQueue()
-{
-    QueueList p;
-    QueuePtr r;
-    r=(QueuePtr)malloc(sizeof(QNode));
-    if(!r)
-    {
-        printf("ÉêÇëÄÚ´æÊ§°Ü£¡\n");
-        exit(1);
-    }
-    r->next=NULL;
-    p.head=p.end=r;
-    printf("Success to creat a QueueList!\n");
-    return p;
+void DestroyQueue(QueueList a) {
+	QueuePtr p=a.end,q;
+	while(p!=NULL) {
+		q=p;
+		p=p->next;
+		free(q);
+	}
+	printf("Successful!\n");
 }
-
-void DestroyQueue(QueueList a)
-{
-    QueuePtr p,q;
-    if(a.head==a.end)
-    {
-        free(a.head);
-    }
-    p=a.head;
-    q=p->next;
-    do
-    {
-        free(p);
-        p=q;
-        q=q->next;
-    }while(p->next);
+void ClearQueue(QueueList *a) {
+/*	QueuePtr p=a->end->next,q;
+	while(p!=NULL) {
+		q=p;
+		p=p->next;
+		free(q);
+	}
+	a->end=a->head;
+	printf("Successful!\n");*/
+	while(a->end==a->head) {
+		DeQueue(*a);
+	}
+	a->end=a->head;
+	printf("Successful!\n");
 }
-
-void ClearQueue(QueueList a)
-{
-    if(QueueEmpty(a))
-    {
-        printf("¶ÓÁĞÎª¿Õ£¬ÎŞ·¨Ö´ĞĞµ±Ç°²Ù×÷£¡\n");
-        return;
-    }
-    QueuePtr p,q;
-    p=a.head->next;
-    q=p->next;
-    while(p)
-    {
-        free(p);
-        p=q;
-        q=q->next;
-    }
+int QueueEmpty(QueueList a) {
+	if(a.end==a.head) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
 }
-
-int QueueEmpty(QueueList a)
-{
-    if(a.end==a.head)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
+int QueueLength(QueueList a) {
+	int temp=0;
+	QueuePtr p=a.end;
+	while(p!=a.head) {
+		temp++;
+		p=p->next;
+	}
+	return temp;
 }
-
-int QueueLength(QueueList a)
-{
-    QueuePtr p=a.head;
-    int temp=0;
-    while(p->next)
-    {
-        temp++;
-    }
-    return temp;
+Elem GetHead(QueueList a) {
+	return a.head->data;
 }
-
-Elem GetHead(QueueList a)
-{
-    QueuePtr p;
-    p=a.head->next;
-    if(p->next)
-    {
-        printf("OK!\n");
-        return p->data;
-    }
-    else
-    {
-        printf("ERROR!\n");
-        return 0;
-    }
+void EnQueue(QueueList *a,Elem b) {
+	QueuePtr p=malloc(sizeof(QNode));
+	p->data=b;
+	p->next=a->head->next;
+	a->head->next=p;
+	a->head=p;
 }
-
-void EnQueue(QueueList a,Elem b)
-{
-    QueuePtr p,q;
-    p=(QueuePtr)malloc(sizeof(QNode));
-    p->data=b;
-    q=a.end;
-    p->next=q->next;
-    q->next=p;
-    a.end=p;
-    printf("Success to EnQueue!\n");
+Elem DeQueue(QueueList a) {
+	QueuePtr p=a.end->next;
+	Elem temp;
+	temp=a.end->next->data;
+	a.end->next=p->next;
+	free(p);
+	return temp;
 }
-
-Elem DeQueue(QueueList a)
-{
-    Elem temp;
-    QueuePtr p,q;
-    if(a.end==a.head)
-    {
-        printf("ERROR!\n");
-        exit(1);
-    }
-    p=a.head->next;
-    a.head->next=p->next;
-    free(p);
-    printf("Success to DeQueue!\n");
-    return temp;
-}
-
-void QueueRead(QueueList a)
-{
-    if(QueueEmpty(a))
-    {
-        printf("¶ÓÁĞÎª¿Õ£¡\n");
-        return;
-    }
-    QueuePtr p;
-    p=a.head->next;
-    while(p)
-    {
-        printf("%5d",p->data);
-    }
+void QueueRead(QueueList a) {
+	QueuePtr p=a.end;
+	while(p!=a.head) {
+		p=p->next;
+		printf("%d\t",p->data);
+	}
+	printf("\nSuccessful!\n");
 }
